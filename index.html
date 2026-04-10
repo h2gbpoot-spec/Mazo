@@ -2,10 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>منصة استثمار - أرباح يومية | عجلة الحظ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Goscar Invest | منصة استثمار احترافية</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -16,65 +16,77 @@
         }
         
         :root {
-            --bg-main: #0a0a0f;
-            --bg-card: linear-gradient(135deg, #111116, #0d0d12);
-            --bg-card-solid: #111116;
-            --border-color: rgba(0, 230, 255, 0.12);
-            --text-main: #FFFFFF;
-            --text-muted: #8892A6;
-            --accent-cyan: #00E6FF;
-            --accent-gold: #FFD700;
-            --accent-purple: #9D4EDD;
-            --danger: #FF3B30;
-            --success: #34C759;
-            --warning: #FF9500;
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --glow: 0 0 20px rgba(0, 230, 255, 0.3);
+            --primary: #6C5CE7;
+            --primary-dark: #5B4BC4;
+            --secondary: #00CEC9;
+            --accent: #FFEAA7;
+            --danger: #FF7675;
+            --success: #00B894;
+            --warning: #FDCB6E;
+            --dark: #1E1E2F;
+            --darker: #13131F;
+            --card-bg: #2D2D3F;
+            --text: #FFFFFF;
+            --text-muted: #A0A0B0;
+            --border: rgba(255,255,255,0.08);
+            --glow: 0 0 30px rgba(108, 92, 231, 0.4);
+            --card-radius: 24px;
         }
-
+        
         body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg-main);
-            color: var(--text-main);
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text);
             margin: 0;
             padding: 0;
-            padding-bottom: 80px;
-            -webkit-tap-highlight-color: transparent;
-            overflow-x: hidden;
-            position: relative;
+            padding-bottom: 75px;
+            min-height: 100vh;
         }
-
-        /* تأثيرات خلفية متحركة */
-        body::before {
-            content: '';
+        
+        /* خلفية متحركة فاخرة */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 230, 255, 0.03) 0%, transparent 50%);
-            pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
-
-        .container { 
-            padding: 15px; 
-            max-width: 500px;
-            margin: 0 auto;
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+        
+        @keyframes bgMove {
+            0%, 100% { transform: translate(-10%, -10%); }
+            50% { transform: translate(10%, 10%); }
+        }
+        
+        .container {
             position: relative;
             z-index: 1;
+            padding: 16px;
+            max-width: 500px;
+            margin: 0 auto;
         }
         
-        .screen { 
-            display: none; 
-            animation: fadeInUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); 
+        /* شاشات */
+        .screen {
+            display: none;
+            animation: fadeSlide 0.4s ease;
         }
         
-        .screen.active { 
-            display: block; 
+        .screen.active {
+            display: block;
         }
-
-        @keyframes fadeInUp {
+        
+        @keyframes fadeSlide {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -84,270 +96,325 @@
                 transform: translateY(0);
             }
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        @keyframes shine {
-            0% { background-position: -100% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        @keyframes spinWheel {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* بطاقات الاستثمار */
-        .invest-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 28px;
+        
+        /* بطاقات فاخرة */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border);
             padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* رصيد فاخر */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 32px;
+            padding: 25px 20px;
+            text-align: center;
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
-
-        .invest-card::before {
+        
+        .balance-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            opacity: 0.5;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shine 8s ease-in-out infinite;
         }
-
-        .invest-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(0, 230, 255, 0.3);
-            box-shadow: var(--glow);
+        
+        @keyframes shine {
+            0%, 100% { transform: translate(-20%, -20%); }
+            50% { transform: translate(20%, 20%); }
         }
-
-        .profit-counter {
-            background: linear-gradient(135deg, #00E6FF20, #007BFF20);
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 15px;
-            border: 1px solid rgba(0, 230, 255, 0.2);
+        
+        .balance-label {
+            font-size: 14px;
+            opacity: 0.8;
+            letter-spacing: 1px;
         }
-
-        .profit-number {
+        
+        .balance-amount {
             font-size: 48px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #00E6FF, #007BFF);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: pulse 2s ease-in-out infinite;
+            font-weight: 800;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-
-        /* عجلة الحظ */
+        
+        .balance-sub {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        /* عداد الأرباح */
+        .profit-card {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0097A7 100%);
+            border-radius: 28px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .profit-number {
+            font-size: 36px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* أزرار */
+        .btn {
+            border: none;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #FDCB6E, #E67E22);
+            color: #1E1E2F;
+        }
+        
+        .input-field {
+            background: var(--darker);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px 16px;
+            width: 100%;
+            color: var(--text);
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        /* عجلة الحظ - تصميم فاخر */
+        .wheel-section {
+            text-align: center;
+            padding: 20px;
+        }
+        
         .wheel-container {
-            background: var(--bg-card);
-            border-radius: 50%;
+            position: relative;
             width: 280px;
             height: 280px;
             margin: 20px auto;
-            position: relative;
-            box-shadow: 0 0 30px rgba(0, 230, 255, 0.2), inset 0 0 20px rgba(0,0,0,0.3);
         }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100% !important;
-            height: 100% !important;
+        
+        .wheel-canvas {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5), 0 0 0 8px rgba(255,255,255,0.1);
+            transition: transform 0.3s;
         }
-
+        
         .wheel-pointer {
             position: absolute;
-            top: -20px;
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-top: 40px solid var(--accent-gold);
-            z-index: 10;
+            border-top: 45px solid var(--warning);
             filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+            z-index: 10;
         }
-
-        .spin-btn {
-            background: linear-gradient(135deg, #FFD700, #FF8C00);
+        
+        .wheel-pointer::after {
+            content: '';
+            position: absolute;
+            top: -55px;
+            left: -12px;
+            width: 24px;
+            height: 24px;
+            background: var(--warning);
+            border-radius: 50%;
+        }
+        
+        .spin-button {
+            background: linear-gradient(135deg, #FDCB6E, #E67E22);
             border: none;
-            padding: 14px 30px;
+            padding: 16px 35px;
             border-radius: 50px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
-            color: #000;
+            color: #1E1E2F;
             cursor: pointer;
             margin: 20px auto;
-            display: block;
-            transition: all 0.2s ease;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 20px rgba(253, 203, 110, 0.4);
+            transition: all 0.2s;
         }
-
-        .spin-btn:active {
+        
+        .spin-button:active {
             transform: scale(0.95);
         }
-
-        /* أقسام الشحن */
-        .deposit-section {
-            background: var(--bg-card);
-            border-radius: 24px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .deposit-title {
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
+        
+        /* أقسام الشحن - بنفس تصميم الموقع الأصلي */
+        .deposit-methods {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
         }
-
-        .deposit-option {
-            background: rgba(0, 230, 255, 0.05);
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        .method-btn {
+            flex: 1;
+            min-width: 90px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 12px 8px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            border: 1px solid transparent;
         }
-
-        .deposit-option:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 230, 255, 0.1);
+        
+        .method-btn.active {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.2);
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
         }
-
-        .deposit-option.active {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 230, 255, 0.15);
+        
+        .method-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
         }
-
-        .address-box {
-            background: var(--bg-main);
-            border-radius: 12px;
-            padding: 12px;
-            font-family: monospace;
+        
+        .method-name {
             font-size: 12px;
-            word-break: break-all;
-            margin: 10px 0;
-            border: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+        
+        .payment-detail {
+            background: var(--darker);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .payment-detail.active {
+            display: block;
+            animation: fadeSlide 0.3s ease;
+        }
+        
+        .address-row {
+            background: rgba(0,0,0,0.3);
+            border-radius: 14px;
+            padding: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: 10px 0;
+            word-break: break-all;
         }
-
-        .copy-btn {
-            background: rgba(0, 230, 255, 0.1);
-            border: none;
+        
+        .copy-icon {
+            background: var(--primary);
             padding: 8px 12px;
-            border-radius: 8px;
-            color: var(--accent-cyan);
+            border-radius: 10px;
             cursor: pointer;
             font-size: 12px;
         }
-
-        /* قسم السحب - كما هو تماماً */
+        
+        /* السحب - نفس التصميم الأصلي */
+        .withdraw-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
         .withdraw-item {
-            background: var(--bg-card-solid);
-            border: 1px solid var(--border-color);
+            background: var(--card-bg);
             border-radius: 16px;
-            padding: 14px;
+            padding: 15px;
             margin-bottom: 10px;
             border-right: 4px solid var(--warning);
         }
-
-        .withdraw-item.success {
+        
+        .withdraw-item.completed {
             border-right-color: var(--success);
         }
-
-        /* تأثيرات بصرية إضافية */
-        .glow-text {
-            text-shadow: 0 0 10px rgba(0, 230, 255, 0.5);
-        }
-
-        .btn-gradient {
-            background: linear-gradient(135deg, #00E6FF, #007BFF);
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 800;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        .btn-gradient:active {
-            transform: scale(0.97);
-        }
-
+        
+        /* التنقل السفلي */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
-            width: 100%;
-            background: rgba(17, 17, 22, 0.95);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid var(--border-color);
+            right: 0;
+            background: rgba(30, 30, 47, 0.95);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 10px 0 20px;
+            border-top: 1px solid var(--border);
             z-index: 100;
         }
-
+        
         .nav-item {
             text-align: center;
             color: var(--text-muted);
             cursor: pointer;
             flex: 1;
             font-size: 11px;
-            font-weight: 700;
             transition: all 0.2s;
-            padding: 5px;
         }
-
-        .nav-item.active {
-            color: var(--accent-cyan);
-            transform: translateY(-2px);
-        }
-
+        
         .nav-item i {
             font-size: 22px;
             display: block;
             margin-bottom: 4px;
         }
-
-        .balance-card {
-            background: linear-gradient(135deg, #111116, #0a0a0f);
-            border-radius: 20px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid var(--border-color);
+        
+        .nav-item.active {
+            color: var(--primary);
+            transform: translateY(-3px);
         }
-
+        
+        /* مودال */
         .modal {
             display: none;
             position: fixed;
@@ -361,374 +428,259 @@
             justify-content: center;
             align-items: center;
         }
-
+        
         .modal-content {
-            background: var(--bg-card-solid);
-            border-radius: 28px;
-            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 30px;
             width: 85%;
             max-width: 320px;
             text-align: center;
-            border: 1px solid var(--accent-cyan);
+            border: 1px solid var(--primary);
         }
     </style>
 </head>
 <body>
 
+<div class="bg-animation"></div>
+
 <div class="container">
-    <!-- الشاشة الرئيسية -->
-    <div id="screen-home" class="screen active">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div></div>
-            <h2 style="font-size: 20px;"><i class="fa-solid fa-chart-line" style="color: #00E6FF;"></i> منصة استثمار</h2>
-            <div class="profile-pic" style="width: 45px; height: 45px; background: linear-gradient(135deg, #00E6FF, #007BFF); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i class="fa-solid fa-user"></i>
-            </div>
+    <!-- الصفحة الرئيسية -->
+    <div id="home-screen" class="screen active">
+        <div class="balance-card">
+            <div class="balance-label">الرصيد الكلي</div>
+            <div class="balance-amount" id="totalBalance">0.00</div>
+            <div class="balance-sub">دولار أمريكي 💵</div>
         </div>
-
-        <!-- الرصيد -->
-        <div class="balance-card" style="margin-bottom: 20px;">
-            <div style="font-size: 12px; color: var(--text-muted);">الرصيد الكلي</div>
-            <div style="font-size: 42px; font-weight: 900; color: #00E6FF;" id="total-balance">0.00</div>
-            <div style="font-size: 11px; color: var(--text-muted);">$ USD</div>
-        </div>
-
-        <!-- عداد الأرباح -->
-        <div class="profit-counter">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 5px;">
-                <i class="fa-solid fa-chart-simple"></i> الأرباح المتوقعة
+        
+        <div class="profit-card">
+            <div class="balance-label">الأرباح المتوقعة</div>
+            <div class="profit-number">
+                <span id="expectedProfit">0.00</span>
+                <span style="font-size: 14px;">$ / ساعتين</span>
             </div>
-            <div class="profit-number" id="expected-profit">0.00</div>
-            <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">كل ساعتين | 1 سنت لكل 1$</div>
+            <div class="balance-sub" style="margin-top: 8px;">📈 1 سنت لكل 1$ كل ساعتين</div>
         </div>
-
-        <!-- المبلغ المستثمر -->
-        <div class="invest-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <span><i class="fa-solid fa-coins" style="color: #00E6FF;"></i> المبلغ المستثمر</span>
-                <span id="invested-amount" style="font-size: 20px; font-weight: 800;">0.00 $</span>
+        
+        <div class="card">
+            <div class="card-header">
+                <span><i class="fas fa-chart-line" style="color: var(--primary);"></i> الاستثمار</span>
+                <span id="investedAmount" style="color: var(--secondary);">0.00 $</span>
             </div>
-            <input type="number" id="invest-amount" class="input-box" placeholder="أدخل المبلغ للاستثمار" min="1" step="any" style="background: #1a1a1f; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; width: 100%; color: white; margin-bottom: 10px;">
-            <button class="btn-gradient" onclick="investMoney()">
-                <i class="fa-solid fa-rocket"></i> استثمر الآن
+            <input type="number" id="investInput" class="input-field" placeholder="المبلغ المراد استثماره بالدولار" min="1">
+            <button class="btn btn-primary" onclick="investNow()">
+                <i class="fas fa-rocket"></i> استثمر الآن
             </button>
-            <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 10px;">
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px;">
                 ⚠️ المبلغ يُجمد لمدة 7 أيام | يمكنك سحب الأرباح فقط
             </div>
         </div>
-
-        <!-- عجلة الحظ -->
-        <div class="invest-card" style="text-align: center;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px;">
-                <i class="fa-solid fa-gem" style="color: #FFD700;"></i>
-                <span style="font-weight: 800;">عجلة الحظ</span>
-                <i class="fa-solid fa-gem" style="color: #FFD700;"></i>
+        
+        <!-- عجلة الحظ الفاخرة -->
+        <div class="card" style="text-align: center;">
+            <div class="card-header">
+                <span><i class="fas fa-gem" style="color: #FDCB6E;"></i> عجلة الحظ</span>
+                <span>×1 إلى ×9</span>
             </div>
             <div class="wheel-container">
                 <div class="wheel-pointer"></div>
-                <canvas id="wheelCanvas" width="280" height="280"></canvas>
+                <canvas id="wheelCanvas" class="wheel-canvas" width="280" height="280"></canvas>
             </div>
-            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
-                <i class="fa-solid fa-arrow-rotate-right"></i> دورة الحظ
+            <button class="spin-button" onclick="spinWheel()">
+                <i class="fas fa-arrow-rotate-right"></i> دورة الحظ
             </button>
-            <div style="font-size: 10px; color: var(--text-muted);">فرصة ربح مضاعفات تصل إلى ×9!</div>
+            <div style="font-size: 11px; color: var(--text-muted);">جرب حظك واربح مضاعفات تصل إلى ×9</div>
         </div>
     </div>
-
-    <!-- شاشة الشحن اليدوي والتلقائي -->
-    <div id="screen-deposit" class="screen">
-        <div class="section-header" style="margin-bottom: 15px;">
-            <h3><i class="fa-solid fa-wallet"></i> شحن الرصيد</h3>
-        </div>
-
-        <!-- الشحن التلقائي -->
-        <div class="deposit-section">
-            <div class="deposit-title"><i class="fa-solid fa-bolt" style="color: #00E6FF;"></i> شحن تلقائي</div>
+    
+    <!-- شاشة الشحن (نفس الموقع الأصلي) -->
+    <div id="deposit-screen" class="screen">
+        <div class="card">
+            <div class="card-header">
+                <span><i class="fas fa-wallet"></i> شحن الرصيد</span>
+            </div>
             
-            <div class="deposit-option" onclick="selectAutoMethod('binance')" data-auto="binance">
-                <span><i class="fa-brands fa-bitcoin"></i> Binance (USDT)</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="auto-binance-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>BEP20: 0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743</span>
-                    <button class="copy-btn" onclick="copyText('0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743')">نسخ</button>
+            <div class="deposit-methods" id="depositMethods">
+                <div class="method-btn active" data-method="auto" data-type="vfcash">
+                    <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="method-name">فودافون كاش</div>
+                </div>
+                <div class="method-btn" data-method="auto" data-type="binance">
+                    <div class="method-icon"><i class="fab fa-bitcoin"></i></div>
+                    <div class="method-name">بينانس</div>
+                </div>
+                <div class="method-btn" data-method="auto" data-type="ton">
+                    <div class="method-icon"><i class="fas fa-coins"></i></div>
+                    <div class="method-name">تون كوين</div>
+                </div>
+                <div class="method-btn" data-method="manual" data-type="mycashy">
+                    <div class="method-icon"><i class="fas fa-wallet"></i></div>
+                    <div class="method-name">ماي كاشي</div>
                 </div>
             </div>
-
-            <div class="deposit-option" onclick="selectAutoMethod('vfcash')" data-auto="vfcash">
-                <span><i class="fa-solid fa-mobile-alt"></i> فودافون كاش</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="auto-vfcash-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>رقم فودافون كاش: 01035904976</span>
-                    <button class="copy-btn" onclick="copyText('01035904976')">نسخ</button>
-                </div>
-                <input type="tel" id="auto-sender-phone" class="input-box" placeholder="رقم المحول منه" style="margin-top: 10px;">
-            </div>
-
-            <div class="deposit-option" onclick="selectAutoMethod('ton')" data-auto="ton">
-                <span><i class="fa-solid fa-coins"></i> TON Coin</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="auto-ton-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>TON Address: UQCJtUwtWG5Jwh6RyyfdBPnXK3NDlBYPmWf6K87uz7Q0sKRm</span>
-                    <button class="copy-btn" onclick="copyText('UQCJtUwtWG5Jwh6RyyfdBPnXK3NDlBYPmWf6K87uz7Q0sKRm')">نسخ</button>
-                </div>
-                <div class="address-box" style="margin-top: 8px;">
-                    <span>Memo ID: <strong id="user-memo">123456</strong></span>
-                    <button class="copy-btn" onclick="copyText(document.getElementById('user-memo').innerText)">نسخ</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- الشحن اليدوي -->
-        <div class="deposit-section">
-            <div class="deposit-title"><i class="fa-solid fa-hand"></i> شحن يدوي</div>
             
-            <div class="deposit-option" onclick="selectManualMethod('mycashy')" data-manual="mycashy">
-                <span><i class="fa-solid fa-wallet"></i> ماي كاشي</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-mycashy-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>رقم ماي كاشي: 400104956</span>
-                    <button class="copy-btn" onclick="copyText('400104956')">نسخ</button>
+            <!-- الشحن التلقائي - فودافون كاش -->
+            <div id="auto-vfcash" class="payment-detail active">
+                <div class="address-row">
+                    <span>📱 01035904976</span>
+                    <span class="copy-icon" onclick="copyText('01035904976')">نسخ</span>
                 </div>
-                <input type="text" id="manual-sender-name" class="input-box" placeholder="اسم المحول" style="margin-top: 10px;">
-                <input type="number" id="manual-amount" class="input-box" placeholder="المبلغ بـ SDG" style="margin-top: 10px;">
-                <button class="btn-gradient" style="margin-top: 10px;" onclick="submitManualDeposit()">تأكيد الشحن اليدوي</button>
+                <input type="tel" id="senderPhone" class="input-field" placeholder="رقم المحول منه (11 رقم)" maxlength="11">
+                <input type="number" id="autoAmount" class="input-field" placeholder="المبلغ بالجنيه المصري">
+                <button class="btn btn-primary" onclick="submitAutoDeposit('vfcash')">تأكيد الشحن</button>
             </div>
-
-            <div class="deposit-option" onclick="selectManualMethod('bep20')" data-manual="bep20">
-                <span><i class="fa-brands fa-ethereum"></i> BEP20 🏦</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-bep20-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>Address: 0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743</span>
-                    <button class="copy-btn" onclick="copyText('0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743')">نسخ</button>
+            
+            <!-- الشحن التلقائي - بينانس -->
+            <div id="auto-binance" class="payment-detail">
+                <div class="address-row">
+                    <span>🆔 ID: 793511182</span>
+                    <span class="copy-icon" onclick="copyText('793511182')">نسخ</span>
                 </div>
+                <input type="text" id="binanceName" class="input-field" placeholder="اسم حساب بينانس الخاص بك">
+                <input type="number" id="binanceAmount" class="input-field" placeholder="المبلغ بـ USDT">
+                <button class="btn btn-primary" onclick="submitAutoDeposit('binance')">تأكيد الشحن</button>
             </div>
-
-            <div class="deposit-option" onclick="selectManualMethod('trc20')" data-manual="trc20">
-                <span><i class="fa-brands fa-bitcoin"></i> TRX (TRC20) 🏦</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-trc20-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>Address: TDaEZj2c5LgjAHAY6aefRfJHWtxCmzTBhd</span>
-                    <button class="copy-btn" onclick="copyText('TDaEZj2c5LgjAHAY6aefRfJHWtxCmzTBhd')">نسخ</button>
+            
+            <!-- الشحن التلقائي - تون -->
+            <div id="auto-ton" class="payment-detail">
+                <div class="address-row">
+                    <span>🏦 UQCJtUwtWG5Jwh6RyyfdBPnXK3NDlBYPmWf6K87uz7Q0sKRm</span>
+                    <span class="copy-icon" onclick="copyText('UQCJtUwtWG5Jwh6RyyfdBPnXK3NDlBYPmWf6K87uz7Q0sKRm')">نسخ</span>
                 </div>
-            </div>
-
-            <div class="deposit-option" onclick="selectManualMethod('eth')" data-manual="eth">
-                <span><i class="fa-brands fa-ethereum"></i> ETH (ERC20) 🏦</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-eth-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>Address: 0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743</span>
-                    <button class="copy-btn" onclick="copyText('0x2ab87f2e088ea86fa2b62257f39a2e08e8cd2743')">نسخ</button>
+                <div class="address-row">
+                    <span>🔑 معرفك: <strong id="userMemo">123456</strong></span>
+                    <span class="copy-icon" onclick="copyText(document.getElementById('userMemo').innerText)">نسخ</span>
                 </div>
+                <input type="number" id="tonAmount" class="input-field" placeholder="المبلغ بـ TON">
+                <button class="btn btn-primary" onclick="submitAutoDeposit('ton')">تأكيد الشحن</button>
             </div>
-
-            <div class="deposit-option" onclick="selectManualMethod('btc')" data-manual="btc">
-                <span><i class="fa-brands fa-bitcoin"></i> BTC (Bitcoin) 😀</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-btc-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>Address: 15pDLgEDj9CaC1Vvc2mTgvYaDr6iRrjDB5</span>
-                    <button class="copy-btn" onclick="copyText('15pDLgEDj9CaC1Vvc2mTgvYaDr6iRrjDB5')">نسخ</button>
+            
+            <!-- الشحن اليدوي - ماي كاشي -->
+            <div id="manual-mycashy" class="payment-detail">
+                <div class="address-row">
+                    <span>🏦 رقم ماي كاشي: 400104956</span>
+                    <span class="copy-icon" onclick="copyText('400104956')">نسخ</span>
                 </div>
-            </div>
-
-            <div class="deposit-option" onclick="selectManualMethod('instapay')" data-manual="instapay">
-                <span><i class="fa-solid fa-money-bill"></i> InstaPay 🤑</span>
-                <i class="fa-solid fa-chevron-left"></i>
-            </div>
-            <div id="manual-instapay-detail" style="display: none;" class="address-detail">
-                <div class="address-box">
-                    <span>رابط الدفع: <a href="https://ipn.eg/S/mazen200718/instapay/5Ax0RS" target="_blank" style="color: #00E6FF;">اضغط هنا للدفع</a></span>
-                </div>
+                <input type="text" id="mycashyName" class="input-field" placeholder="اسم المحول في ماي كاشي">
+                <input type="number" id="mycashyAmount" class="input-field" placeholder="المبلغ بالجنيه السوداني SDG">
+                <button class="btn btn-primary" onclick="submitManualDeposit()">تأكيد الشحن اليدوي</button>
             </div>
         </div>
     </div>
-
-    <!-- شاشة السحب (كما هي تماماً) -->
-    <div id="screen-withdraw" class="screen">
-        <div class="card" style="text-align: center; padding: 20px; background: var(--bg-card-solid); border-radius: 20px; margin-bottom: 20px;">
-            <div style="color: var(--text-muted);">الرصيد المتاح للسحب</div>
-            <div style="font-size: 36px; font-weight: 800; color: #00E6FF;" id="withdraw-balance">0.00</div>
-            <div style="font-size: 11px;">$ USD (الأرباح فقط)</div>
+    
+    <!-- شاشة السحب (نفس الموقع الأصلي) -->
+    <div id="withdraw-screen" class="screen">
+        <div class="card" style="text-align: center;">
+            <div class="balance-label">الرصيد المتاح للسحب</div>
+            <div class="balance-amount" style="font-size: 32px;" id="withdrawBalance">0.00</div>
+            <div class="balance-sub">(الأرباح فقط)</div>
         </div>
-        <div class="grid-options" style="margin-bottom: 15px;">
-            <div class="option-box active" onclick="setWithdrawMethod('vfcash')">فودافون كاش</div>
-            <div class="option-box" onclick="setWithdrawMethod('binance')">بينانس</div>
-            <div class="option-box" onclick="setWithdrawMethod('ton')">تون كوين</div>
-            <div class="option-box" onclick="setWithdrawMethod('mycashy')">ماي كاشي</div>
+        
+        <div class="deposit-methods" id="withdrawMethods">
+            <div class="method-btn active" data-withdraw="vfcash">
+                <div class="method-icon"><i class="fas fa-mobile-alt"></i></div>
+                <div class="method-name">فودافون كاش</div>
+            </div>
+            <div class="method-btn" data-withdraw="binance">
+                <div class="method-icon"><i class="fab fa-bitcoin"></i></div>
+                <div class="method-name">بينانس</div>
+            </div>
+            <div class="method-btn" data-withdraw="ton">
+                <div class="method-icon"><i class="fas fa-coins"></i></div>
+                <div class="method-name">تون كوين</div>
+            </div>
+            <div class="method-btn" data-withdraw="mycashy">
+                <div class="method-icon"><i class="fas fa-wallet"></i></div>
+                <div class="method-name">ماي كاشي</div>
+            </div>
         </div>
-        <div id="withdraw-form">
-            <input type="text" id="withdraw-account" class="input-box" placeholder="رقم الحساب / المحفظة">
-            <input type="number" id="withdraw-amount" class="input-box" placeholder="المبلغ ($)" min="1" step="any">
-            <button class="btn-gradient" onclick="submitWithdrawRequest()" style="background: linear-gradient(135deg, #FF9500, #FF3B30);">طلب سحب</button>
-        </div>
-        <div style="margin-top: 20px;">
-            <div class="section-title">طلبات السحب السابقة</div>
-            <div id="withdraw-history-list"></div>
+        
+        <input type="text" id="withdrawAccount" class="input-field" placeholder="رقم الحساب / عنوان المحفظة">
+        <input type="number" id="withdrawAmount" class="input-field" placeholder="المبلغ المراد سحبه ($)" min="1">
+        <button class="btn btn-primary" onclick="submitWithdraw()" style="background: linear-gradient(135deg, #FF7675, #D63031);">طلب سحب</button>
+        
+        <div class="card" style="margin-top: 20px;">
+            <div class="card-header">
+                <span><i class="fas fa-history"></i> طلبات السحب السابقة</span>
+            </div>
+            <div id="withdrawHistory" class="withdraw-list"></div>
         </div>
     </div>
-
+    
     <!-- شاشة النشاط -->
-    <div id="screen-activity" class="screen">
-        <div class="invest-card">
-            <h3><i class="fa-solid fa-chart-line"></i> إحصائيات الاستثمار</h3>
-            <div style="margin-top: 15px;">
-                <div>💰 إجمالي المستثمر: <span id="total-invested">0.00</span> $</div>
-                <div>📈 إجمالي الأرباح: <span id="total-profit">0.00</span> $</div>
-                <div>🎁 مكاسب عجلة الحظ: <span id="wheel-winnings">0.00</span> $</div>
+    <div id="activity-screen" class="screen">
+        <div class="card">
+            <div class="card-header">
+                <span><i class="fas fa-chart-simple"></i> إحصائياتي</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span>💰 إجمالي المستثمر</span>
+                <span id="statInvested" style="color: var(--secondary);">0.00 $</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span>📈 إجمالي الأرباح</span>
+                <span id="statProfit" style="color: var(--success);">0.00 $</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>🎁 مكاسب عجلة الحظ</span>
+                <span id="statWheel" style="color: #FDCB6E;">0.00 $</span>
             </div>
         </div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <div class="nav-item active" onclick="switchScreen('home')"><i class="fa-solid fa-home"></i> الرئيسية</div>
-    <div class="nav-item" onclick="switchScreen('deposit')"><i class="fa-solid fa-wallet"></i> شحن</div>
-    <div class="nav-item" onclick="switchScreen('withdraw')"><i class="fa-solid fa-money-bill-transfer"></i> سحب</div>
-    <div class="nav-item" onclick="switchScreen('activity')"><i class="fa-solid fa-chart-simple"></i> نشاطي</div>
+    <div class="nav-item active" onclick="switchScreen('home')">
+        <i class="fas fa-home"></i> الرئيسية
+    </div>
+    <div class="nav-item" onclick="switchScreen('deposit')">
+        <i class="fas fa-wallet"></i> شحن
+    </div>
+    <div class="nav-item" onclick="switchScreen('withdraw')">
+        <i class="fas fa-money-bill-transfer"></i> سحب
+    </div>
+    <div class="nav-item" onclick="switchScreen('activity')">
+        <i class="fas fa-chart-simple"></i> نشاطي
+    </div>
+</div>
+
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <i class="fas fa-gift" style="font-size: 48px; color: #FDCB6E;"></i>
+        <h3 id="modalTitle" style="margin: 15px 0;">نتيجة الدوران</h3>
+        <p id="modalMessage"></p>
+        <button class="btn btn-primary" onclick="closeModal()" style="margin-top: 15px;">حسناً</button>
+    </div>
 </div>
 
 <script>
     let tg = window.Telegram.WebApp;
     tg.expand();
     
-    // بيانات المستخدم
     let userId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000);
-    let balance = 0; // الرصيد الكلي
-    let investedAmount = 0; // المبلغ المستثمر (المجمد)
+    let balance = 0;
+    let invested = 0;
     let totalProfit = 0;
+    let wheelWins = 0;
     let lastProfitTime = Date.now();
-    let profitTimer = null;
     let withdrawRequests = [];
-    let wheelWinnings = 0;
-    
-    // تحديث واجهة المستخدم
-    function updateUI() {
-        document.getElementById('total-balance').innerText = balance.toFixed(2);
-        document.getElementById('invested-amount').innerText = investedAmount.toFixed(2);
-        document.getElementById('withdraw-balance').innerText = totalProfit.toFixed(2);
-        document.getElementById('total-invested').innerText = investedAmount.toFixed(2);
-        document.getElementById('total-profit').innerText = totalProfit.toFixed(2);
-        document.getElementById('wheel-winnings').innerText = wheelWinnings.toFixed(2);
-        
-        // حساب الأرباح المتوقعة
-        let expected = (investedAmount * 0.01) / 2; // 1 سنت لكل دولار كل ساعتين
-        document.getElementById('expected-profit').innerText = expected.toFixed(4) + ' $ / ساعتين';
-        
-        renderWithdrawHistory();
-    }
-    
-    // استثمار المال
-    function investMoney() {
-        let amount = parseFloat(document.getElementById('invest-amount').value);
-        if (!amount || amount <= 0) {
-            tg.showAlert('⚠️ يرجى إدخال مبلغ صحيح للاستثمار!');
-            return;
-        }
-        if (amount < 1) {
-            tg.showAlert('⚠️ الحد الأدنى للاستثمار هو 1$');
-            return;
-        }
-        
-        investedAmount += amount;
-        balance += amount;
-        updateUI();
-        
-        tg.sendData(JSON.stringify({
-            action: 'invest',
-            user_id: userId,
-            amount: amount,
-            total_invested: investedAmount
-        }));
-        
-        tg.showAlert(`✅ تم استثمار ${amount}$ بنجاح!\n📅 سيتم تجميد المبلغ لمدة 7 أيام\n💰 ستبدأ الأرباح بعد ساعتين`);
-        document.getElementById('invest-amount').value = '';
-        
-        startProfitGeneration();
-    }
-    
-    // توليد الأرباح كل ساعتين
-    function startProfitGeneration() {
-        if (profitTimer) clearInterval(profitTimer);
-        
-        profitTimer = setInterval(() => {
-            let now = Date.now();
-            let hoursSinceLast = (now - lastProfitTime) / (1000 * 60 * 60);
-            
-            if (hoursSinceLast >= 2 && investedAmount > 0) {
-                let profit = investedAmount * 0.01; // 1 سنت لكل دولار
-                totalProfit += profit;
-                balance += profit;
-                lastProfitTime = now;
-                updateUI();
-                
-                tg.sendData(JSON.stringify({
-                    action: 'profit_generated',
-                    user_id: userId,
-                    profit: profit,
-                    total_profit: totalProfit
-                }));
-                
-                tg.showAlert(`💰 تم إضافة أرباح جديدة: ${profit.toFixed(4)}$`);
-            }
-        }, 60000); // التحقق كل دقيقة
-    }
+    let profitInterval;
     
     // عجلة الحظ
-    let wheelSegments = [];
-    let wheelCanvas = null;
-    let currentRotation = 0;
-    let isSpinning = false;
-    
-    // نسب الفوز (مخفية)
-    const wheelConfig = [
-        { multiplier: 1, percent: 36, color: '#2ecc71' },
-        { multiplier: 2, percent: 26, color: '#3498db' },
-        { multiplier: 4, percent: 8, color: '#f39c12' },
-        { multiplier: 6, percent: 5, color: '#e67e22' },
-        { multiplier: 9, percent: 1, color: '#e74c3c' },
-        { multiplier: 0, percent: 98, color: '#7f8c8d' } // -0 (خسارة)
+    let wheelSegments = [
+        { multiplier: 1, percent: 36, color: '#00B894', text: '×1' },
+        { multiplier: 2, percent: 26, color: '#0984E3', text: '×2' },
+        { multiplier: 4, percent: 8, color: '#FDCB6E', text: '×4' },
+        { multiplier: 6, percent: 5, color: '#E17055', text: '×6' },
+        { multiplier: 9, percent: 1, color: '#D63031', text: '×9' },
+        { multiplier: 0, percent: 98, color: '#636E72', text: 'خسارة' }
     ];
     
-    function initWheel() {
-        let total = 0;
-        wheelSegments = [];
-        wheelConfig.forEach(seg => {
-            total += seg.percent;
-        });
-        
-        let startAngle = 0;
-        wheelConfig.forEach(seg => {
-            let angle = (seg.percent / total) * 360;
-            wheelSegments.push({
-                multiplier: seg.multiplier,
-                angle: angle,
-                start: startAngle,
-                end: startAngle + angle,
-                color: seg.color
-            });
-            startAngle += angle;
-        });
-        
-        drawWheel();
-    }
+    let currentRotation = 0;
+    let isSpinning = false;
+    let wheelCanvas = document.getElementById('wheelCanvas');
     
     function drawWheel() {
-        if (!wheelCanvas) return;
         let ctx = wheelCanvas.getContext('2d');
         let width = wheelCanvas.width;
         let height = wheelCanvas.height;
@@ -738,13 +690,14 @@
         
         ctx.clearRect(0, 0, width, height);
         
+        let totalPercent = wheelSegments.reduce((sum, s) => sum + s.percent, 0);
         let startAngle = currentRotation * Math.PI / 180;
         
         wheelSegments.forEach(seg => {
-            let angleRad = (seg.angle * Math.PI) / 180;
+            let angle = (seg.percent / totalPercent) * 360 * Math.PI / 180;
             ctx.beginPath();
             ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, startAngle, startAngle + angleRad);
+            ctx.arc(centerX, centerY, radius, startAngle, startAngle + angle);
             ctx.closePath();
             ctx.fillStyle = seg.color;
             ctx.fill();
@@ -752,57 +705,56 @@
             ctx.lineWidth = 2;
             ctx.stroke();
             
-            // إضافة النص
             ctx.save();
             ctx.translate(centerX, centerY);
-            ctx.rotate(startAngle + angleRad / 2);
+            ctx.rotate(startAngle + angle / 2);
             ctx.fillStyle = '#fff';
-            ctx.font = 'bold 14px Tajawal';
+            ctx.font = 'bold 16px Cairo';
             ctx.shadowBlur = 0;
-            let text = seg.multiplier === 0 ? 'خسارة' : `×${seg.multiplier}`;
-            ctx.fillText(text, radius * 0.6, 8);
+            ctx.fillText(seg.text, radius * 0.65, 8);
             ctx.restore();
             
-            startAngle += angleRad;
+            startAngle += angle;
         });
         
-        // رسم دائرة مركزية
         ctx.beginPath();
-        ctx.arc(centerX, centerY, 30, 0, 2 * Math.PI);
-        ctx.fillStyle = '#1a1a1f';
+        ctx.arc(centerX, centerY, 25, 0, 2 * Math.PI);
+        ctx.fillStyle = '#1E1E2F';
         ctx.fill();
-        ctx.strokeStyle = '#FFD700';
+        ctx.strokeStyle = '#FDCB6E';
         ctx.lineWidth = 3;
         ctx.stroke();
     }
     
     function spinWheel() {
         if (isSpinning) return;
+        if (invested <= 0) {
+            showModal('تنبيه', '⚠️ يجب أن تستثمر مبلغاً أولاً لتتمكن من اللعب في عجلة الحظ!');
+            return;
+        }
         
-        // حساب النتيجة حسب النسب المحددة
         let random = Math.random() * 100;
         let cumulative = 0;
-        let selectedMultiplier = 0;
+        let result = null;
         
-        for (let seg of wheelConfig) {
+        for (let seg of wheelSegments) {
             cumulative += seg.percent;
             if (random <= cumulative) {
-                selectedMultiplier = seg.multiplier;
+                result = seg;
                 break;
             }
         }
         
-        // دوران عشوائي
-        let spins = 5 + Math.random() * 10;
+        let spins = 8 + Math.random() * 10;
         let targetRotation = currentRotation + (spins * 360) + Math.random() * 360;
         
         isSpinning = true;
-        let start = null;
+        let startTime = null;
         let duration = 3000;
         
         function animate(timestamp) {
-            if (!start) start = timestamp;
-            let elapsed = timestamp - start;
+            if (!startTime) startTime = timestamp;
+            let elapsed = timestamp - startTime;
             let progress = Math.min(1, elapsed / duration);
             let ease = 1 - Math.pow(1 - progress, 3);
             
@@ -816,22 +768,14 @@
                 drawWheel();
                 isSpinning = false;
                 
-                // تطبيق النتيجة
-                if (selectedMultiplier > 0 && investedAmount > 0) {
-                    let winAmount = investedAmount * selectedMultiplier;
+                if (result.multiplier > 0) {
+                    let winAmount = invested * result.multiplier;
                     balance += winAmount;
-                    wheelWinnings += winAmount;
+                    wheelWins += winAmount;
                     updateUI();
-                    tg.showAlert(`🎉 تهانينا! ربحت ×${selectedMultiplier}\n💰 المبلغ: ${winAmount.toFixed(2)}$`);
-                    
-                    tg.sendData(JSON.stringify({
-                        action: 'wheel_win',
-                        user_id: userId,
-                        multiplier: selectedMultiplier,
-                        amount: winAmount
-                    }));
+                    showModal('🎉 فوز!', `لقد ربحت ×${result.multiplier}\n💰 المبلغ: ${winAmount.toFixed(2)}$`);
                 } else {
-                    tg.showAlert(`😔 للأسف، لم تربح هذه المرة. جرب حظك مرة أخرى!`);
+                    showModal('😔 للأسف', 'لم تربح هذه المرة... جرب حظك مرة أخرى!');
                 }
             }
         }
@@ -839,80 +783,124 @@
         requestAnimationFrame(animate);
     }
     
-    // أقسام الشحن
-    let currentAutoMethod = null;
-    let currentManualMethod = null;
-    
-    function selectAutoMethod(method) {
-        if (currentAutoMethod) {
-            document.getElementById(`auto-${currentAutoMethod}-detail`).style.display = 'none';
+    function investNow() {
+        let amount = parseFloat(document.getElementById('investInput').value);
+        if (!amount || amount <= 0) {
+            showModal('تنبيه', '⚠️ يرجى إدخال مبلغ صحيح للاستثمار!');
+            return;
         }
-        currentAutoMethod = method;
-        document.getElementById(`auto-${method}-detail`).style.display = 'block';
+        if (amount < 1) {
+            showModal('تنبيه', '⚠️ الحد الأدنى للاستثمار هو 1$');
+            return;
+        }
+        
+        invested += amount;
+        balance += amount;
+        updateUI();
+        
+        tg.sendData(JSON.stringify({
+            action: 'invest',
+            user_id: userId,
+            amount: amount
+        }));
+        
+        showModal('✅ تم الاستثمار', `تم استثمار ${amount}$ بنجاح!\n📅 سيتم تجميد المبلغ لمدة 7 أيام`);
+        document.getElementById('investInput').value = '';
+        startProfitGeneration();
     }
     
-    function selectManualMethod(method) {
-        if (currentManualMethod) {
-            document.getElementById(`manual-${currentManualMethod}-detail`).style.display = 'none';
+    function startProfitGeneration() {
+        if (profitInterval) clearInterval(profitInterval);
+        
+        profitInterval = setInterval(() => {
+            let now = Date.now();
+            let hoursPassed = (now - lastProfitTime) / (1000 * 60 * 60);
+            
+            if (hoursPassed >= 2 && invested > 0) {
+                let profit = invested * 0.01;
+                totalProfit += profit;
+                balance += profit;
+                lastProfitTime = now;
+                updateUI();
+                
+                tg.sendData(JSON.stringify({
+                    action: 'profit',
+                    user_id: userId,
+                    profit: profit
+                }));
+            }
+        }, 60000);
+    }
+    
+    function submitAutoDeposit(type) {
+        let amount = 0;
+        if (type === 'vfcash') {
+            amount = parseFloat(document.getElementById('autoAmount')?.value);
+            if (!amount || amount < 5) {
+                showModal('تنبيه', '⚠️ الحد الأدنى للشحن هو 5 EGP');
+                return;
+            }
+        } else if (type === 'binance') {
+            amount = parseFloat(document.getElementById('binanceAmount')?.value);
+            if (!amount || amount < 0.1) {
+                showModal('تنبيه', '⚠️ الحد الأدنى للشحن هو 0.1 USDT');
+                return;
+            }
+        } else if (type === 'ton') {
+            amount = parseFloat(document.getElementById('tonAmount')?.value);
+            if (!amount || amount < 0.01) {
+                showModal('تنبيه', '⚠️ الحد الأدنى للشحن هو 0.01 TON');
+                return;
+            }
         }
-        currentManualMethod = method;
-        document.getElementById(`manual-${method}-detail`).style.display = 'block';
+        
+        tg.sendData(JSON.stringify({
+            action: 'deposit',
+            user_id: userId,
+            type: type,
+            amount: amount
+        }));
+        
+        showModal('✅ تم الإرسال', 'تم إرسال طلب الشحن، سيتم إضافة الرصيد بعد التأكيد');
     }
     
     function submitManualDeposit() {
-        let senderName = document.getElementById('manual-sender-name')?.value;
-        let amount = parseFloat(document.getElementById('manual-amount')?.value);
+        let name = document.getElementById('mycashyName')?.value;
+        let amount = parseFloat(document.getElementById('mycashyAmount')?.value);
         
-        if (!senderName) {
-            tg.showAlert('⚠️ يرجى إدخال اسم المحول');
+        if (!name) {
+            showModal('تنبيه', '⚠️ يرجى إدخال اسم المحول');
             return;
         }
-        if (!amount || amount <= 0) {
-            tg.showAlert('⚠️ يرجى إدخال مبلغ صحيح');
+        if (!amount || amount < 5) {
+            showModal('تنبيه', '⚠️ الحد الأدنى للشحن هو 5 SDG');
             return;
         }
         
         tg.sendData(JSON.stringify({
             action: 'manual_deposit',
             user_id: userId,
-            method: currentManualMethod,
-            sender: senderName,
-            amount: amount,
-            currency: 'SDG'
+            name: name,
+            amount: amount
         }));
         
-        tg.showAlert('✅ تم إرسال طلب الشحن اليدوي، سيتم مراجعته وإضافته قريباً');
-        document.getElementById('manual-sender-name').value = '';
-        document.getElementById('manual-amount').value = '';
+        showModal('✅ تم الإرسال', 'تم إرسال طلب الشحن اليدوي، سيتم مراجعته قريباً');
     }
     
-    // السحب
-    let currentWithdrawMethod = 'vfcash';
-    
-    function setWithdrawMethod(method) {
-        currentWithdrawMethod = method;
-        document.querySelectorAll('.option-box').forEach(el => el.classList.remove('active'));
-        event.target.closest('.option-box')?.classList.add('active');
-    }
-    
-    function submitWithdrawRequest() {
-        let account = document.getElementById('withdraw-account').value;
-        let amount = parseFloat(document.getElementById('withdraw-amount').value);
+    function submitWithdraw() {
+        let account = document.getElementById('withdrawAccount').value;
+        let amount = parseFloat(document.getElementById('withdrawAmount').value);
         
         if (!account) {
-            tg.showAlert('⚠️ يرجى إدخال رقم الحساب/المحفظة');
+            showModal('تنبيه', '⚠️ يرجى إدخال رقم الحساب');
             return;
         }
-        if (!amount || amount <= 0) {
-            tg.showAlert('⚠️ يرجى إدخال مبلغ صحيح');
-            return;
-        }
-        if (amount < 1) {
-            tg.showAlert('⚠️ الحد الأدنى للسحب هو 1$');
+        if (!amount || amount < 1) {
+            showModal('تنبيه', '⚠️ الحد الأدنى للسحب هو 1$');
             return;
         }
         if (amount > totalProfit) {
-            tg.showAlert('⚠️ المبلغ المطلوب أكبر من الأرباح المتاحة!');
+            showModal('تنبيه', '⚠️ المبلغ المطلوب أكبر من الأرباح المتاحة!');
             return;
         }
         
@@ -921,83 +909,110 @@
         
         withdrawRequests.unshift({
             id: Date.now(),
-            method: currentWithdrawMethod,
-            account: account,
             amount: amount,
             date: new Date().toLocaleString('ar-EG'),
             status: 'pending'
         });
         
         updateUI();
+        renderWithdrawHistory();
         
         tg.sendData(JSON.stringify({
-            action: 'withdraw_request',
+            action: 'withdraw',
             user_id: userId,
-            method: currentWithdrawMethod,
-            account: account,
-            amount: amount
+            amount: amount,
+            account: account
         }));
         
-        tg.showAlert(`✅ تم إرسال طلب سحب بقيمة ${amount}$\nسيتم التحويل خلال 24 ساعة`);
-        document.getElementById('withdraw-account').value = '';
-        document.getElementById('withdraw-amount').value = '';
+        showModal('✅ تم الإرسال', `تم إرسال طلب سحب بقيمة ${amount}$، سيتم التحويل خلال 24 ساعة`);
+        document.getElementById('withdrawAccount').value = '';
+        document.getElementById('withdrawAmount').value = '';
     }
     
     function renderWithdrawHistory() {
-        let container = document.getElementById('withdraw-history-list');
-        if (!container) return;
-        
+        let container = document.getElementById('withdrawHistory');
         if (withdrawRequests.length === 0) {
-            container.innerHTML = '<div style="text-align: center; color: #8892A6; padding: 20px;">لا توجد طلبات سحب</div>';
+            container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-muted);">لا توجد طلبات سحب</div>';
             return;
         }
         
         container.innerHTML = withdrawRequests.map(req => `
-            <div class="withdraw-item ${req.status === 'completed' ? 'success' : ''}">
+            <div class="withdraw-item ${req.status === 'completed' ? 'completed' : ''}">
                 <div style="display: flex; justify-content: space-between;">
-                    <span>${req.amount}$</span>
-                    <span>${req.method === 'vfcash' ? 'فودافون كاش' : req.method === 'binance' ? 'بينانس' : req.method === 'ton' ? 'تون' : 'ماي كاشي'}</span>
+                    <span>💰 ${req.amount}$</span>
+                    <span class="${req.status === 'pending' ? 'fa-regular fa-clock' : 'fa-regular fa-circle-check'}"></span>
                 </div>
-                <div style="font-size: 11px; color: #8892A6;">${req.account}</div>
-                <div style="font-size: 10px; color: #FF9500; margin-top: 5px;">${req.status === 'pending' ? '⏳ قيد المراجعة' : '✅ تم التنفيذ'}</div>
-                <div style="font-size: 9px; color: #8892A6;">${req.date}</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">${req.date}</div>
+                <div style="font-size: 11px; color: ${req.status === 'pending' ? '#FDCB6E' : '#00B894'}; margin-top: 5px;">
+                    ${req.status === 'pending' ? '⏳ قيد المراجعة' : '✅ تم التنفيذ'}
+                </div>
             </div>
         `).join('');
     }
     
-    function copyText(text) {
-        navigator.clipboard.writeText(text);
-        tg.showAlert('✅ تم نسخ النص');
+    function updateUI() {
+        document.getElementById('totalBalance').innerText = balance.toFixed(2);
+        document.getElementById('investedAmount').innerHTML = invested.toFixed(2) + ' $';
+        document.getElementById('withdrawBalance').innerText = totalProfit.toFixed(2);
+        document.getElementById('statInvested').innerText = invested.toFixed(2) + ' $';
+        document.getElementById('statProfit').innerText = totalProfit.toFixed(2) + ' $';
+        document.getElementById('statWheel').innerText = wheelWins.toFixed(2) + ' $';
+        
+        let expected = (invested * 0.01) / 2;
+        document.getElementById('expectedProfit').innerText = expected.toFixed(4);
     }
     
     function switchScreen(screen) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(`screen-${screen}`).classList.add('active');
+        document.getElementById(`${screen}-screen`).classList.add('active');
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        event.target.closest('.nav-item')?.classList.add('active');
+        event.target.closest('.nav-item').classList.add('active');
         
         if (screen === 'withdraw') renderWithdrawHistory();
     }
     
-    // تهيئة العجلة
-    wheelCanvas = document.getElementById('wheelCanvas');
-    initWheel();
+    function copyText(text) {
+        navigator.clipboard.writeText(text);
+        showModal('✅ تم النسخ', 'تم نسخ النص إلى الحافظة');
+    }
     
-    // تحديث الـ Memo ID
-    document.getElementById('user-memo').innerText = userId;
+    function showModal(title, message) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalMessage').innerHTML = message;
+        document.getElementById('resultModal').style.display = 'flex';
+    }
     
-    // بدء توليد الأرباح
+    function closeModal() {
+        document.getElementById('resultModal').style.display = 'none';
+    }
+    
+    // اختيار طريقة الشحن
+    document.querySelectorAll('.method-btn[data-method]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            let method = this.dataset.method;
+            let type = this.dataset.type;
+            
+            document.querySelectorAll('.payment-detail').forEach(d => d.classList.remove('active'));
+            document.getElementById(`${method}-${type}`).classList.add('active');
+            
+            document.querySelectorAll('.method-btn[data-method]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // اختيار طريقة السحب
+    document.querySelectorAll('.method-btn[data-withdraw]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.method-btn[data-withdraw]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    document.getElementById('userMemo').innerText = userId;
+    drawWheel();
     startProfitGeneration();
     updateUI();
-    
     tg.ready();
-    
-    // استقبال بيانات من الخادم إذا وجدت
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('balance')) balance = parseFloat(urlParams.get('balance'));
-    if (urlParams.get('invested')) investedAmount = parseFloat(urlParams.get('invested'));
-    if (urlParams.get('profit')) totalProfit = parseFloat(urlParams.get('profit'));
-    updateUI();
 </script>
 </body>
 </html>
